@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Edit Profile </title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/editProfile.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+<body>
+<div id="title">
+	<a href="/">
+		<img id="logo" src= {{ url_for('static', filename='images/logo.png') }} />
+	</a>
+	<form>
+		<input id="searchBox" type="text" name="searchQuery">
+		<input id="searchButton" type="submit" value="Search">
+	</form>
+
+	{% if not loggedIn %}
+	<div id="signInButton">
+		<a class="link" href="/loginForm">Sign In</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hello, <br>{{firstName}}</button>
+		<div class="dropdown-content">
+			<a href="/account/profile">Your profile</a>
+			<hr>
+			<a href="/logout">Sign Out</a>
+		</div>
+	</div>
+	{% endif %}
+	
+</div>
+
+<div class="display">
+	<h2>Edit profile</h2>
+	<form action="/updateProfile" method="POST" enctype="multipart/form-data">
+		<p>Email:<input type="email" name="email" value={{profileData[1]}} readonly="readonly"></p>
+		<p>First Name:<input type="text" name="firstName" value={{profileData[2]}}></p>
+		<p>Last Name: <input type="text" name="lastName" value={{profileData[3]}}></p>
+		
+		<p>Image: <input type="file" name="image" value={{profileData[4]}}> 
+		
+		{{profileData[4]}}</p>
+		<input type="submit" value="Save">
+	</form>
+</div>
+</body>
+</html>
+
